@@ -1,0 +1,1 @@
+add_library(journal_static_lib journal_static_lib.cpp)
