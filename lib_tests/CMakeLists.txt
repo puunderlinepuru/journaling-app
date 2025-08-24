@@ -1,29 +1,65 @@
 include(CTest)
 enable_testing()
 
-
-
-add_test(NAME journal_exits_test
-        COMMAND "${CMAKE_CURRENT_LIST_DIR}/script_test.sh" "../build/bin/journal.txt"
+# STATIC LIBRARY TESTS
+add_executable(StaticInitTest static_init_test.cpp)
+target_link_libraries(StaticInitTest
+                        journal_static_lib
+                        )
+add_test(NAME StaticInitializationTest 
+        COMMAND StaticInitTest
         WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
-        )      
+        )
 
-# file exists
 
-# journal name test.txt with no access
+add_executable(StaticAccessLevelTest static_access_level_test.cpp)
+target_link_libraries(StaticAccessLevelTest 
+                        journal_static_lib
+                        )
+add_test(NAME StaticAccessLevelChangeTest 
+        COMMAND StaticAccessLevelTest
+        WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
+        )
 
-# journal name test with no access
 
-# journal name test with access 4
+add_executable(StaticWriteTest static_write_test.cpp)
+target_link_libraries(StaticWriteTest 
+                        journal_static_lib
+                        )
+add_test(NAME StaticWriteTest 
+        COMMAND StaticWriteTest
+        WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
+        )
 
-#journal name test with access 0
+        
 
-#journal name test with access 1
+# DYNAMIC LIBRARY TESTS
+add_executable(DynamicInitTest dynamic_init_test.cpp)
+target_link_libraries(DynamicInitTest
+                        journal_dynamic_lib
+                        )
+add_test(NAME DynamicInitializationTest 
+        COMMAND DynamicInitTest
+        WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
+        )
 
-# too many arguments
 
-#really long journal name with no access
+add_executable(DynamicAccessLevelTest dynamic_access_level_test.cpp)
+target_link_libraries(DynamicAccessLevelTest 
+                        journal_dynamic_lib
+                        )
+add_test(NAME DynamicAccessLevelChangeTest 
+        COMMAND DynamicAccessLevelTest
+        WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
+        )
 
-#really long entry text
 
-#no entry text
+add_executable(DynamicWriteTest dynamic_write_test.cpp)
+target_link_libraries(DynamicWriteTest 
+                        journal_dynamic_lib
+                        )
+add_test(NAME DynamicWriteTest 
+        COMMAND DynamicWriteTest
+        WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}")
+
+

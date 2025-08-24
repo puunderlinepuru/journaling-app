@@ -47,6 +47,23 @@ namespace journal_dynamic
 
         journalFile.close();
     }
+
+    /* Write entry to journal file */
+    void write_to_file(std::string entry) {
+        int chosenAccessLevel = defaultAccessLevel;
+        time_t timeStamp = time(0);
+        std::ofstream journalFile(directoryPath + journalName, std::ios::app);
+        if (!journalFile) {
+            std::cerr << "Error opening journal file: " << journalName << std::endl;
+            return;
+        }
+
+        journalFile << '#' << entry;
+        journalFile << '#' << AccessLevels[chosenAccessLevel - 1] << std::endl;
+        journalFile << '#' << ctime(&timeStamp) << std::endl;
+
+        journalFile.close();
+    }
 }
 
 
